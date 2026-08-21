@@ -1,7 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+const navLinks = [
+  { id: 'hero', label: 'Beranda' },
+  { id: 'about', label: 'Tentang Kami' },
+  { id: 'tujuan', label: 'Tujuan' },
+  { id: 'faq', label: 'Pertanyaan' },
+  { id: 'footer', label: 'Hubungi Kami' },
+];
+
 export default function Footer({ logoSrc }) {
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -70;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <footer id="footer" className="scroll-mt-28 relative mt-28 font-sans">
       {/* 1. Floating Overlapping CTA Banner */}
@@ -39,46 +62,38 @@ export default function Footer({ logoSrc }) {
             {/* Kolom 1: Brand Logo & Bio */}
             <div className="lg:col-span-4 space-y-4">
               <div className="flex items-center">
-                <img 
-                  src={logoSrc || "/assets/logo.png"} 
-                  alt="Botolin Logo" 
-                  className="h-10 w-auto object-contain"
-                />
+                <a 
+                  href="#hero" 
+                  onClick={(e) => scrollToSection(e, 'hero')}
+                  className="cursor-pointer"
+                >
+                  <img 
+                    src={logoSrc || "/assets/logo.png"} 
+                    alt="Botolin Logo" 
+                    className="h-10 w-auto object-contain"
+                  />
+                </a>
               </div>
               <p className="text-slate-700 text-sm leading-relaxed max-w-sm">
                 Kami menyediakan layanan untuk penjualan botol plastik, memastikan setiap transaksi Anda berkontribusi langsung pada pengurangan limbah plastik di Bumi.
               </p>
             </div>
 
-            {/* Kolom 2: Jelajah */}
+            {/* Kolom 2: Jelajah (Smooth Scroll Links) */}
             <div className="lg:col-span-2">
               <h3 className="font-bold text-slate-800 text-base mb-4">Jelajah</h3>
               <ul className="space-y-2.5 text-sm text-slate-700 font-medium">
-                <li>
-                  <a href="#beranda" className="hover:text-sky-700 transition-colors">
-                    Beranda
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="hover:text-sky-700 transition-colors">
-                    Tentang Kami
-                  </a>
-                </li>
-                <li>
-                  <a href="#tujuan" className="hover:text-sky-700 transition-colors">
-                    Tujuan
-                  </a>
-                </li>
-                <li>
-                  <a href="#faq" className="hover:text-sky-700 transition-colors">
-                    Pertanyaan
-                  </a>
-                </li>
-                <li>
-                  <a href="#kontak" className="hover:text-sky-700 transition-colors">
-                    Hubungi Kami
-                  </a>
-                </li>
+                {navLinks.map((item) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      onClick={(e) => scrollToSection(e, item.id)}
+                      className="hover:text-sky-700 transition-colors cursor-pointer"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -86,7 +101,7 @@ export default function Footer({ logoSrc }) {
             <div className="lg:col-span-3">
               <h3 className="font-bold text-slate-800 text-base mb-4">Lokasi</h3>
               <p className="text-sm text-slate-700 leading-relaxed">
-                Puri Gedawang Indah blok I no 5, Kota Semarang, Jawa Tengah
+                Popuri Tembalang No 50 
               </p>
             </div>
 
