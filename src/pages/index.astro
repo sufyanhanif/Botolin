@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/layouts/Navbar.jsx';
+import HeroSection from '../components/sections/HeroSection.jsx';
+import About from '../components/sections/About.jsx';
+import Tujuan from '../components/sections/Tujuan.jsx';
+import FAQ from '../components/sections/FAQ.jsx';
+import Footer from '../components/sections/Footer.jsx';
+
+import "../styles/global.css";
+import homeImg from '../assets/home.png';
+import aboutImg from '../assets/about.png';
+import Logo from '../assets/logo.png';
+---
+
+<Layout>
+    <Navbar client:load logoSrc={Logo.src} />
+    <HeroSection client:load imageSrc={homeImg.src} />
+    <About client:visible imageSrc={aboutImg.src} />
+    <Tujuan client:visible />
+    <FAQ client:visible />
+    <Footer client:visible logoSrc={Logo.src} />
+</Layout>
